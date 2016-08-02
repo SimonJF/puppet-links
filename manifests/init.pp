@@ -49,7 +49,14 @@ class links(
   $database_password = $links::params::database_password,
   $database_name = $links::params::database_name,
   $database_host = $links::params::database_host,
-) {
-
+  $ocaml_version = $links::params::ocaml_version,
+  $links_installdir = $links::params::links_installdir,
+  $links_repo_url = $links::params::links_repo_url,
+  $links_branch = $links::params::links_branch
+) inherits $links::params {
   include links::packages
+  include links::ocaml
+  include links::postgres
+  #include links::apache
+  include links::links
 }

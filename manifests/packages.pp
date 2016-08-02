@@ -2,11 +2,11 @@
 class links::packages{
 
   # Ensure Apt is installed and updates
-    class { 'apt':
-      update      => {
-        frequency => 'daily',
-      },
-    } ~>
+  class { 'apt':
+    update      => {
+      frequency => 'daily',
+    },
+  } ~>
 
   # Add the PPA for OCaml on Ubuntu
   apt::ppa { 'ppa:avsm/ppa': } ->
@@ -26,6 +26,10 @@ class links::packages{
   }
 
   package { 'opam':
+    ensure => present
+  }
+
+  package { 'm4':
     ensure => present
   }
 
