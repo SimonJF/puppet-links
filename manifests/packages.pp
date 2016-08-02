@@ -33,6 +33,10 @@ class links::packages{
     ensure => present
   }
 
+  package { 'pkg-config':
+    ensure => present
+  }
+
   # Git
   package { 'git':
     ensure => present

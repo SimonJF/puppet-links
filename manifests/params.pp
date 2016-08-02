@@ -8,4 +8,5 @@ class links::params {
   $links_installdir = "/vagrant"
   $links_repo_url = "https://github.com/links-lang/links"
   $links_branch = "sessions"
+  $username = "vagrant"
 }

@@ -53,10 +53,29 @@ class links(
   $links_installdir = $links::params::links_installdir,
   $links_repo_url = $links::params::links_repo_url,
   $links_branch = $links::params::links_branch
-) inherits $links::params {
+) inherits links::params {
   include links::packages
-  include links::ocaml
-  include links::postgres
+
+  class { 'links::ocaml':
+    ocaml_version => $ocaml_version,
+    username => $username,
+  } ->
+
+  class { 'links::postgres':
+    database_username => $database_username,
+    database_password => $database_password,
+    database_name => $database_name,
+    database_host => $database_host,
+  } ->
+
+  class { 'links::links':
+    links_installdir => $links_installdir,
+    links_repo_url => $links_repo_url,
+    links_branch => $links_branch,
+    username => $username,
+  }
+
+
   #include links::apache
-  include links::links
+  #include links::links
 }

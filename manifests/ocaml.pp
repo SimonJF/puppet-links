@@ -1,23 +1,24 @@
-class links::ocaml {
+class links::ocaml(
+  $username = $links::params::username,
+  $ocaml_version = $links::params::ocaml_version
+) {
 
   Exec {
     path => ['/bin', '/sbin', '/usr/bin', '/usr/sbin'],
     logoutput => 'on_failure',
+    user => $username,
   }
 
   exec {'opam-init':
     command => "opam init",
-  } ~>
-
-  exec {'update-env':
-    command => "eval `opam config env`",
-  } ~>
+  } ->
 
   exec {'compiler-switch':
-    command => "opam switch ${links::ocaml_version}",
-  } ~>
+    command => "opam switch $ocaml_version --yes",
+    timeout => 1800
+  } ->
 
   exec {'links-deps':
-    command => 'opam install m4 camlp4 lwt deriving'
+    command => 'opam install camlp4 lwt deriving'
   }
 }
