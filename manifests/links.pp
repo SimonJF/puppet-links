@@ -24,9 +24,14 @@ class links::links(
     command => "git clone $links_repo_url",
     cwd => $links_installdir,
   } ~>
+
   exec { 'checkout':
     command => "git checkout $links_branch",
-    cwd => "$links_gitdir"
+    cwd => $links_gitdir,
+  } ~>
+
+  exec { 'make':
+    command => "make nc",
+    cwd => $links_gitdir,
   }
-  # ~> make nc here (also, whoops, need to install deps first)
 }

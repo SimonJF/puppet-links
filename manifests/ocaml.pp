@@ -19,6 +19,8 @@ class links::ocaml(
   } ->
 
   exec {'links-deps':
-    command => 'opam install camlp4 lwt deriving'
-  }
+    command => 'opam install camlp4 lwt deriving',
+    timeout => 1800,
+  } 
+
 }
