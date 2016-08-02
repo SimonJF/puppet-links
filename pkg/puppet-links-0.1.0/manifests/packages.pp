@@ -2,14 +2,22 @@
 class links::packages{
 
   # Ensure Apt is installed and updates
-  class { 'apt':
-    update      => {
-      frequency => 'always',
-    },
-  }
+    class { 'apt':
+      update      => {
+        frequency => 'daily',
+      },
+    } ~>
 
   # Add the PPA for OCaml on Ubuntu
-  apt::ppa { 'ppa:avsm/ppa': }
+  apt::ppa { 'ppa:avsm/ppa': } ->
+  Package <| |>
+
+  # Ensure we update *before* installing packages
+  #exec { "apt-update":
+  #  command => "/usr/bin/apt-get update"
+  #}
+  #Class["apt"] ->
+  #Exec["apt-update"] -> Package <| |>
 
   # OCaml packages
   package { 'ocaml':
