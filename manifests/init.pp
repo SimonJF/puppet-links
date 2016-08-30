@@ -55,6 +55,7 @@ class links(
   $links_branch = $links::params::links_branch
 ) inherits links::params {
   include links::packages
+  include links::apachewebserver
 
   class { 'links::ocaml':
     ocaml_version => $ocaml_version,
@@ -72,10 +73,9 @@ class links(
     links_installdir => $links_installdir,
     links_repo_url => $links_repo_url,
     links_branch => $links_branch,
+    ocaml_version => $ocaml_version,
     username => $username,
   }
 
 
-  #include links::apache
-  #include links::links
 }

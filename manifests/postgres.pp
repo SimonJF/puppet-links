@@ -6,8 +6,6 @@ class links::postgres(
     $database_host = $links::params::database_host
   ) {
 
-  notice("db name: $database_name")
-
   # Firstly, ensure that we have postgres installed
   class { 'postgresql::server': }
 
